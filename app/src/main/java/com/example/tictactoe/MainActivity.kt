@@ -17,8 +17,11 @@ class MainActivity : AppCompatActivity() {
         CROSS
     }
 
-    private  var firstTurn = Turn.NOUGHT
+    private  var firstTurn = Turn.CROSS
     private  var currentTurn = Turn.CROSS
+
+    private var crossesScore = 0
+    private var noughtsScore = 0
 
     private var boardList = mutableListOf<Button>()
 
@@ -48,15 +51,55 @@ class MainActivity : AppCompatActivity() {
             return
         addToBoard(view)
 
+        if(checkForVictory(NOUGHT)) {
+            noughtsScore++
+            result("Nought Win!")
+        }
+
+        if(checkForVictory(CROSS)) {
+            crossesScore++
+            result("Cross Win!")
+        }
+
         if(fullBoard()) {
             result("DRAW")
         }
     }
 
+    private fun checkForVictory(s: String): Boolean {
+        //Horizontal Victory
+        if(match(binding.a1, s) && match(binding.a2, s) && match(binding.a3, s))
+            return true
+        if(match(binding.b1, s) && match(binding.b2, s) && match(binding.b3, s))
+            return true
+        if(match(binding.c1, s) && match(binding.c2, s) && match(binding.c3, s))
+            return true
+
+        //Vertical Victory
+        if(match(binding.a1, s) && match(binding.b1, s) && match(binding.c1, s))
+            return true
+        if(match(binding.a2, s) && match(binding.b2, s) && match(binding.c2, s))
+            return true
+        if(match(binding.a3, s) && match(binding.b3, s) && match(binding.c3, s))
+            return true
+
+        //Diagonal Victory
+        if(match(binding.a1, s) && match(binding.b2, s) && match(binding.c3, s))
+            return true
+        if(match(binding.a3, s) && match(binding.b2, s) && match(binding.c1, s))
+            return true
+
+        return false
+    }
+
+    private fun match(button: Button, symbol: String): Boolean = button.text == symbol
+
     private fun result(title: String) {
+        val message = "\nNoughts $noughtsScore \n\nCrosses $crossesScore"
         AlertDialog.Builder(this)
             .setTitle(title)
-            .setPositiveButton("Reset") {
+            .setMessage(message)
+            .setPositiveButton("Play Again") {
                 _,_ ->
                 resetBoard()
             }
@@ -69,11 +112,11 @@ class MainActivity : AppCompatActivity() {
             button.text = ""
         }
 
-        if(firstTurn == Turn.NOUGHT) {
-            firstTurn = Turn.CROSS
-        } else if (firstTurn == Turn.CROSS) {
-            firstTurn = Turn.NOUGHT
-        }
+        //if(firstTurn == Turn.NOUGHT) {
+        //    firstTurn = Turn.CROSS
+        //} else if (firstTurn == Turn.CROSS) {
+        //    firstTurn = Turn.NOUGHT
+        //}
 
         currentTurn = firstTurn
         setTurnTitle()
