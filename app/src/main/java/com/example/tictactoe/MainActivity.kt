@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         CROSS
     }
 
-    private  var firstTurn = Turn.NOUGHT
+    private  var firstTurn = Turn.CROSS
     private  var currentTurn = Turn.CROSS
 
     private var crossesScore = 0
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("Reset") {
+            .setPositiveButton("Play Again") {
                 _,_ ->
                 resetBoard()
             }
@@ -112,11 +112,11 @@ class MainActivity : AppCompatActivity() {
             button.text = ""
         }
 
-        if(firstTurn == Turn.NOUGHT) {
-            firstTurn = Turn.CROSS
-        } else if (firstTurn == Turn.CROSS) {
-            firstTurn = Turn.NOUGHT
-        }
+        //if(firstTurn == Turn.NOUGHT) {
+        //    firstTurn = Turn.CROSS
+        //} else if (firstTurn == Turn.CROSS) {
+        //    firstTurn = Turn.NOUGHT
+        //}
 
         currentTurn = firstTurn
         setTurnTitle()
