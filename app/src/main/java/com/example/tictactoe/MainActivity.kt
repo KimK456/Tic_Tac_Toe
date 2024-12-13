@@ -112,12 +112,6 @@ class MainActivity : AppCompatActivity() {
             button.text = ""
         }
 
-        //if(firstTurn == Turn.NOUGHT) {
-        //    firstTurn = Turn.CROSS
-        //} else if (firstTurn == Turn.CROSS) {
-        //    firstTurn = Turn.NOUGHT
-        //}
-
         currentTurn = firstTurn
         setTurnTitle()
     }
